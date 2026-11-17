@@ -1,0 +1,14 @@
+# secrets and local state
+.env
+backend/.fo_mcp.json
+backend/.fo_sent.json
+backend/fo_outbox.json
+backend/local_roster.json
+# generated mock world (rebuilt by gen_mock.py on first run)
+backend/data/
+# deps and builds
+.venv
+__pycache__
+node_modules
+dist
+.DS_Store

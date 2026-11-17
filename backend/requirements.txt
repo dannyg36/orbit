@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+pydantic
+networkx
+anthropic
+python-dotenv
+mcp
+# optional: cognee  (ORBIT_MEMORY=cognee)

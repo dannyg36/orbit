@@ -1,0 +1,7 @@
+{
+  "me": { "name": "Your Name", "email": "you@example.com" },
+  "friends": {
+    "jordan": { "name": "Jo", "email": "jo@example.com" },
+    "theo": { "name": "Tee" }
+  }
+}

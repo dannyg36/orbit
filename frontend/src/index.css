@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+html, body, #root { height: 100%; }
+body {
+  margin: 0; background: #04060E; color: #F5F5F7; overflow: hidden;
+  font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, .tight { font-family: "Inter Tight", Inter, system-ui, sans-serif; font-weight: 600; }
+button { cursor: pointer; font-family: inherit; }
+svg text { font-family: Inter, system-ui, sans-serif; }
+
+@keyframes twinkle { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin-rev { to { transform: rotate(-360deg); } }
+@keyframes dash-flow { to { stroke-dashoffset: -56; } }
+@keyframes halo { 0%, 100% { transform: scale(1); opacity: .22; } 50% { transform: scale(1.07); opacity: .3; } }
+@keyframes glow-pulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+@keyframes dots { 0%, 80%, 100% { transform: translateY(0); opacity: .35; } 40% { transform: translateY(-4px); opacity: 1; } }
+@keyframes nebula-drift { 0%, 100% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(-1.2%, 1%, 0) scale(1.03); } }
+
+.twinkle { animation: twinkle 3.2s ease-in-out infinite; }
+.drift-ring { animation: spin 140s linear infinite; transform-origin: 0 0; }
+.flow { animation: dash-flow 2.4s linear infinite; }
+.halo { animation: halo 4.5s ease-in-out infinite; transform-origin: 0 0; }
+.glow-pulse { animation: glow-pulse 3.6s ease-in-out infinite; }
+.spinner { animation: spin .9s linear infinite; }
+.typing i { display: inline-block; width: 6px; height: 6px; border-radius: 99px; background: currentColor; margin: 0 2px; animation: dots 1.1s infinite; }
+.typing i:nth-child(2) { animation-delay: .15s; }
+.typing i:nth-child(3) { animation-delay: .3s; }
+.scroll-soft { scrollbar-width: none; }
+.scroll-soft::-webkit-scrollbar { display: none; }
+
+input[type="range"].ff { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 99px; outline: none;
+  background: linear-gradient(90deg, #5FD3C8, #F0475C); }
+input[type="range"].ff::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 99px; background: #F5F5F7;
+  border: 4px solid #F0475C; box-shadow: 0 2px 12px rgba(240, 71, 92, .6); cursor: grab; }

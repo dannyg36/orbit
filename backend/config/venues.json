@@ -1,0 +1,90 @@
+{
+  "cities": {
+    "Berkeley": [
+      37.87,
+      -122.268
+    ],
+    "Oakland": [
+      37.805,
+      -122.27
+    ],
+    "San Francisco": [
+      37.775,
+      -122.419
+    ]
+  },
+  "venues": [
+    {
+      "name": "Lalibela Table",
+      "cuisine": "ethiopian",
+      "city": "Berkeley",
+      "near": "Downtown Berkeley BART",
+      "walk_min": 4,
+      "price": "$$",
+      "xy": [
+        37.87,
+        -122.268
+      ]
+    },
+    {
+      "name": "Shattuck Noodle Bar",
+      "cuisine": "ramen",
+      "city": "Berkeley",
+      "near": "Downtown Berkeley BART",
+      "walk_min": 3,
+      "price": "$$",
+      "xy": [
+        37.871,
+        -122.268
+      ]
+    },
+    {
+      "name": "Fourth Street Taqueria",
+      "cuisine": "mexican",
+      "city": "Berkeley",
+      "near": "Fourth Street",
+      "walk_min": 22,
+      "price": "$$",
+      "xy": [
+        37.868,
+        -122.3
+      ]
+    },
+    {
+      "name": "Temescal Supper Club",
+      "cuisine": "californian",
+      "city": "Oakland",
+      "near": "MacArthur BART",
+      "walk_min": 9,
+      "price": "$$$",
+      "xy": [
+        37.829,
+        -122.266
+      ]
+    },
+    {
+      "name": "Lake Merritt Dumpling House",
+      "cuisine": "dumplings",
+      "city": "Oakland",
+      "near": "Lake Merritt BART",
+      "walk_min": 6,
+      "price": "$",
+      "xy": [
+        37.797,
+        -122.265
+      ]
+    },
+    {
+      "name": "Rockridge Pizza Garden",
+      "cuisine": "pizza",
+      "city": "Oakland",
+      "near": "Rockridge BART",
+      "walk_min": 5,
+      "price": "$$",
+      "xy": [
+        37.844,
+        -122.251
+      ]
+    }
+  ]
+}
