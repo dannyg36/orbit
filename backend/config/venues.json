@@ -15,16 +15,17 @@
   },
   "venues": [
     {
-      "name": "Lalibela Table",
-      "cuisine": "ethiopian",
+      "name": "Jupiter",
+      "cuisine": "pizza",
       "city": "Berkeley",
       "near": "Downtown Berkeley BART",
-      "walk_min": 4,
+      "walk_min": 2,
       "price": "$$",
       "xy": [
-        37.87,
-        -122.268
-      ]
+        37.8699,
+        -122.2677
+      ],
+      "address": "2181 Shattuck Ave, Berkeley"
     },
     {
       "name": "Shattuck Noodle Bar",

@@ -85,11 +85,15 @@ def _placeholder(task: FoTask) -> bool:
 
 
 def _describe(task: FoTask) -> str:
-    return f"{task.title}\n" + (f"{me()} approved spending up to ${task.spend:.0f}.\n" if task.spend else "") + task.body
+    earlier = _sent().get("_tasks", {}).get(task.id)
+    update = ("This replaces an earlier version of the same task that you already carried out. "
+              "Make clear to the recipient that it is an update.\n") if earlier and earlier != task.body else ""
+    return f"{task.title}\n{update}" + (f"{me()} approved spending up to ${task.spend:.0f}.\n" if task.spend else "") + task.body
 
 
 def _remember(res: dict):
-    text = res.get("response") or res.get("progress") or ""
+    working = res.get("status") == "working"  # while working, `response` is only polling guidance
+    text = (res.get("progress") or "Working on it") if working else (res.get("response") or res.get("progress") or "")
     LAST.update(conversationId=res.get("conversationId"), status=res.get("status", "working"), text=" ".join(text.split())[:400])
 
 
@@ -139,6 +143,7 @@ def dispatch_many(tasks: list[FoTask], approved: bool = False, dry: bool = False
             else:
                 res = _ask_fo(ready)
                 sent[key] = {**res, "at": now}
+                sent.setdefault("_tasks", {}).update({t.id: t.body for t in ready})
                 SENT.write_text(json.dumps(sent, indent=1))
             for t in ready:
                 t.status, t.note = "sent", "handed to Fo" if res.get("status") != "failed" else "Fo could not do this"
@@ -182,7 +187,7 @@ def poll(wait: int = 0) -> dict:
             _remember(res)
             sent = _sent()
             for k, v in sent.items():  # keep the saved hand-off in step with Fo's latest word
-                if v.get("conversationId") == res.get("conversationId"):
+                if k != "_tasks" and v.get("conversationId") == res.get("conversationId"):
                     sent[k] = {**v, **res}
             SENT.write_text(json.dumps(sent, indent=1))
         except BaseException as e:

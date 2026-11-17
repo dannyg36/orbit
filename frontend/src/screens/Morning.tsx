@@ -101,6 +101,11 @@ export default function Morning({ orbit, brief, onApprove, onReply, onOrbit, vh 
                   )
                 })}
               </div>
+              {!!dinner.extras?.length && (
+                <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
+                  {dinner.extras.map((x) => <Tag key={x.label} color={x.status === 'sent' ? C.teal : C.text3}>{x.status === 'sent' ? '✓' : '·'} {x.label}{x.status === 'sent' ? ' · with Fo' : ' · logged'}</Tag>)}
+                </div>
+              )}
               <div style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: 14.5, color: C.text2 }}>
                 <Tag color="#3A2A22" bg={C.cream} style={{ fontWeight: 600 }}>Talk about</Tag>{dinner.talk_about}
               </div>

@@ -17,9 +17,9 @@ export type Orbit = {
   integrations: { llm: string; fo: string; memory: string }
 }
 export type AgentMessage = { round: number; sender: string; recipient: string; type: 'propose' | 'counter' | 'accept' | 'final'; reason: string; place_type?: string; budget?: string; time_window?: { day: string; start: string; end: string } }
-export type FoTask = { id: string; kind: 'invite' | 'checkin' | 'gift' | 'intro'; friends: string[]; title: string; body: string; spend: number; status: string; note: string }
+export type FoTask = { id: string; kind: 'invite' | 'checkin' | 'gift' | 'intro' | 'calendar' | 'reservation'; friends: string[]; title: string; body: string; spend: number; status: string; note: string }
 export type Approval = { id: string; kind: 'gift' | 'intro'; friends: string[]; status: string; title: string; detail: string; cost: string; yes: string; no: string }
 export type Handled =
-  | { kind: 'dinner'; title: string; when: string; venue: { name: string; cuisine: string; near: string; walk_min: number }; reason: string; talk_about: string; rsvps: { friend: string; status: 'in' | 'sent' }[] }
+  | { kind: 'dinner'; title: string; when: string; venue: { name: string; cuisine: string; near: string; walk_min: number }; reason: string; talk_about: string; rsvps: { friend: string; status: 'in' | 'sent' }[]; extras?: { label: string; status: string }[] }
   | { kind: 'checkin'; friend: string; title: string; detail: string; status: string }
 export type Brief = { greeting: string; summary: string; approvals: Approval[]; handled: Handled[]; reunited: string[]; fo_mode: string; outbox: FoTask[]; fo?: { status: string | null; text: string } }

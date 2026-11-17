@@ -115,6 +115,20 @@ async def run(pace: float = 1.0, dry: bool = False, seed_rsvps: bool = False) ->
                       f"Hi {people[p]['name']}, this is {me}'s assistant. {me} would love to get everyone back around a table: "
                       f"{proposal.time} at {v.name} ({v.walk_min} min walk from {v.near}). {others} are invited too. "
                       f"Can you make it? A quick yes or no is perfect.\n\n{me}'s assistant")))
+    if proposal:  # put it on calendars and hold a table (only for guests with real addresses)
+        v, when = proposal.venue, date.fromisoformat(proposal.time_iso[:10])
+        day = f"{when.strftime('%A, %b')} {when.day}"
+        clock_time = proposal.time.split(", ")[1]
+        where = f"{v.name}" + (f", {v.address}" if v.address else f", near {v.near}")
+        real = [people[p]["email"] for p in cluster if not people[p]["email"].endswith("@example.com")]
+        tasks.append(FoTask(
+            id="calendar", kind="calendar", friends=cluster, emails=real, title="Calendar invite for dinner",
+            body=(f"Create an event on {me}'s Google Calendar: \"Dinner at {v.name}\", {day}, {clock_time} for two hours, "
+                  f"location {where}. Add these guests so they get a calendar invite: {', '.join(real)}.")))
+        tasks.append(FoTask(
+            id="reservation", kind="reservation", friends=cluster, emails=real, title=f"Table for {len(cluster) + 1} at {v.name}",
+            body=(f"Reserve a table for {len(cluster) + 1} at {where} on {day} at {clock_time}, under {me}'s name. "
+                  f"If they don't take reservations or that time is full, don't book anything else: just tell {me}.")))
     for t in targets:
         f = people[t["friends"][0]]
         if t["kind"] == "checkin":
@@ -193,7 +207,9 @@ def brief() -> dict | None:
     if p:
         handled.append({"kind": "dinner", "title": "Dinner's on!", "when": p["time"], "venue": p["venue"], "reason": p["reason"],
                         "talk_about": p["memory_hook"],
-                        "rsvps": [{"friend": f, "status": state.S["rsvps"].get(f, "sent")} for f in p["participants"]]})
+                        "rsvps": [{"friend": f, "status": state.S["rsvps"].get(f, "sent")} for f in p["participants"]],
+                        "extras": [{"label": {"calendar": "Calendar invite", "reservation": t.title}[t.kind], "status": t.status}
+                                   for t in tasks.values() if t.kind in ("calendar", "reservation")]})
     for t in tasks.values():
         if t.kind == "checkin":
             handled.append({"kind": "checkin", "friend": t.friends[0], "title": f"Fo checked in with {people[t.friends[0]]['name']}",

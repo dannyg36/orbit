@@ -49,6 +49,7 @@ class Venue(BaseModel):
     near: str
     walk_min: int
     price: str
+    address: str = ""
 
 
 class Proposal(BaseModel):
@@ -62,7 +63,7 @@ class Proposal(BaseModel):
 
 class FoTask(BaseModel):
     id: str
-    kind: Literal["invite", "checkin", "gift", "intro"]
+    kind: Literal["invite", "checkin", "gift", "intro", "calendar", "reservation"]
     friends: list[str]
     emails: list[str] = []
     title: str
